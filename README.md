@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is part of a work trial for the Machine Learning Engineer position at Blockhouse. The primary task was to implement and fine-tune a transformer-based model to generate trade recommendations based on market data. The project involved creating a hybrid model using both LSTM and Transformer layers, followed by extensive fine-tuning and evaluation to optimize the model's performance.
+This project is part of a work trial for the Machine Learning Engineer position at Blockhouse. The primary task was to implement and fine-tune a transformer-based model to generate trade recommendations based on market data. The project involved creating a hybrid model using both LSTM and Transformer layers, followed by extensive fine-tuning and evaluation to optimize the model's performance. Additionally, backtesting was performed to assess the model's real-world applicability.
 
 ## Table of Contents
 
@@ -23,17 +23,20 @@ The project directory is organized as follows:
 
 ```
 blockhouse/
-├── bilstm_model_evaluation.py        # Script for evaluating the BiLSTM model
-├── data_preparation.py               # Script for data preprocessing and feature engineering
-├── model_evaluation.py               # Script for model evaluation
-├── model_implementation_lstm.py      # Implementation of the LSTM model
-├── model_implementation_with_bidirectional_lstm.py # Implementation of the BiLSTM model
-├── model_implementation_with_features.py # Implementation with additional features
-├── report_generation.py              # Script to generate evaluation reports
-├── test_environment.py               # Script to test the environment setup
-├── xnas-itch-20230703.tbbo.csv       # Market data used for training and evaluation
-├── best_hybrid_model.pth             # Best performing model weights
-└── blockhouse-env/                   # Virtual environment directory (not included in GitHub repo)
+├── bilstm_model_evaluation.py               # Initial evaluation of the BiLSTM model
+├── data_preparation.py                      # Data preprocessing and feature engineering
+├── model_evaluation.py                      # Modular evaluation framework
+├── model_evaluation_with_backtest.py        # Model evaluation including backtesting
+├── model_implementation.py                  # Consolidated model implementation
+├── model_implementation_lstm.py             # Basic LSTM model implementation
+├── model_implementation_with_bidirectional_lstm.py # BiLSTM model implementation
+├── model_implementation_with_features.py    # Model implementation with additional features
+├── model_implementation_with_more_features.py # Further feature enhancement
+├── report_generation.py                     # Automated report generation
+├── test_environment.py                      # Environment setup validation
+├── xnas-itch-20230703.tbbo.csv              # Market data used for training and evaluation
+├── best_hybrid_model.pth                    # Best performing model weights
+└── blockhouse-env/                          # Virtual environment directory (not included in GitHub repo)
 ```
 
 ## Installation
@@ -98,13 +101,17 @@ The BiLSTM model, which uses a bidirectional LSTM for better context understandi
 
 The core of this project is the Hybrid model that combines LSTM and Transformer layers to leverage both sequential and attention-based modeling techniques. The implementation is split across several scripts:
 - `model_implementation_with_features.py`
-- `bilstm_model_evaluation.py`
+- `model_implementation_with_more_features.py`
+
+### 4. Consolidated Implementation
+
+To streamline and optimize the approach, the final model was implemented in `model_implementation.py`, integrating the best practices from previous iterations.
 
 ## Evaluation
 
 ### 1. Model Evaluation
 
-Model evaluation is conducted using the `model_evaluation.py` and `bilstm_model_evaluation.py` scripts. These scripts load the trained models and run them against the test set to generate accuracy, precision, recall, F1 scores, and confusion matrices.
+Model evaluation is conducted using the `model_evaluation.py` and `model_evaluation_with_backtest.py` scripts. These scripts load the trained models and run them against the test set to generate accuracy, precision, recall, F1 scores, confusion matrices, and financial metrics through backtesting.
 
 ### 2. Report Generation
 
@@ -118,6 +125,7 @@ After extensive training and evaluation, the final model achieved the following 
 - **Precision:** 0.94 (weighted avg)
 - **Recall:** 0.94 (weighted avg)
 - **F1 Score:** 0.94 (weighted avg)
+- **Final Balance after Backtest:** $12,881.74
 
 The confusion matrix and classification report generated during the evaluation phase are included in the `report_generation.py` script.
 
@@ -148,7 +156,7 @@ To run the model training and evaluation, follow these steps:
 3. **Evaluate the Model:**
 
    ```bash
-   python bilstm_model_evaluation.py
+   python model_evaluation_with_backtest.py
    ```
 
 4. **Generate the Report:**
@@ -170,3 +178,4 @@ Contributions are welcome! If you have ideas for improvement or new features, fe
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
